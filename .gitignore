@@ -1,0 +1,13 @@
+node_modules/
+debug.png
+*.png
+*.json
+!package.json
+!package-lock.json
+!.github/
+.env
+.env.local
+.DS_Store
+table.html
+libero-*.json
+table-td-clickables.json

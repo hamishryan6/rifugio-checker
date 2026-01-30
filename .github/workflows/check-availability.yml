@@ -1,0 +1,40 @@
+name: Check rifugio availability
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # runs hourly at minute 0
+  workflow_dispatch:      # allows manual runs
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run checker and save output
+        run: node checker.js > result.txt || true
+
+      - id: parse
+        name: Parse output for available dates
+        run: |
+          AVAILABLE=$(grep -v 'unavailable' result.txt || true)
+          echo "available<<EOF" >> $GITHUB_OUTPUT
+          echo "$AVAILABLE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Notify Discord if availability found
+        if: ${{ steps.parse.outputs.available != '' }}
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d "{\"content\":\"Availability found:\n${{ steps.parse.outputs.available }}\"}" \
+               ${{ secrets.DISCORD_WEBHOOK }}
