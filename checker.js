@@ -5,13 +5,13 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const URL = 'https://rifugiolagazuoi.com/EN/disponibilita.php?prm=7&chm=-1#TabDisp';
+const URL = 'https://rifugiolagazuoi.com/EN/disponibilita.php?prm=8&chm=-1#TabDisp';
 
 // Configure the date range and minimum beds to check
 // Set these numbers before running: START_DAY (inclusive), END_DAY (inclusive), MIN_BEDS
-const START_DAY = 24; // example: 24
-const END_DAY = 30;   // example: 30
-const MIN_BEDS = 1;   // example: require at least 1 bed to be considered available
+const START_DAY = 21; // example: 24
+const END_DAY = 21;   // example: 30
+const MIN_BEDS = 2;   // example: require at least 1 bed to be considered available
 
 (async () => {
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
