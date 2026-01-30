@@ -2,7 +2,7 @@ name: Check rifugio availability
 
 on:
   schedule:
-    - cron: '* * * * *'   # runs every minute (testing)
+    - cron: '*/5 * * * *'   # runs every 5 minutes
   workflow_dispatch:      # allows manual runs
 
 jobs:
