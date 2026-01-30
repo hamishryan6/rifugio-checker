@@ -1,8 +1,6 @@
 name: Check rifugio availability
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'   # runs every 5 minutes
   workflow_dispatch:      # allows manual runs
 
 jobs:
